@@ -44,18 +44,13 @@ public class Main {
 
             int response = JOptionPane.showOptionDialog(null, questions[i], "Jautājums " + (i + 1),
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, icon, optionsWithExit, optionsWithExit[0]);
-
             if (response == options[i].length) {
-             
-                JOptionPane.showMessageDialog(null, "Tests pārtraukts.", "Iziet", JOptionPane.INFORMATION_MESSAGE);
+             JOptionPane.showMessageDialog(null, "Tests pārtraukts.", "Iziet", JOptionPane.INFORMATION_MESSAGE);
                 System.exit(0);
             }
-
             userAnswers[i] = response;
         }
-
-       
-        int correctCount = 0;
+            int correctCount = 0;
         for (int i = 0; i < questions.length; i++) {
             if (userAnswers[i] == correctAnswers[i]) {
                 correctCount++;
@@ -64,8 +59,7 @@ public class Main {
             }
         }
 
-    
-        StringBuilder resultMessage = new StringBuilder();
+            StringBuilder resultMessage = new StringBuilder();
         resultMessage.append("Pareizi atbildēti jautājumi: ").append(correctCount).append(" no ").append(questions.length).append("\n");
 
         if (!incorrectQuestions.isEmpty()) {
@@ -75,7 +69,6 @@ public class Main {
                 resultMessage.append("Pareizā atbilde: ").append(options[index][correctAnswers[index]]).append("\n\n");
             }
         }
-
         JOptionPane.showMessageDialog(null, resultMessage.toString(), "Rezultāti", JOptionPane.INFORMATION_MESSAGE);
     }
 }
