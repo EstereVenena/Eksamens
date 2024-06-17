@@ -4,34 +4,33 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        // Jautājumu un atbilžu inicializācija
-        String[] questions = {
-                "1. Kas tiks izvadīts ekrānā ja kods būs šāds: System.out.println(\"Hello\".charAt(1));",
-                "2. Kāda ir metode, lai pievienotu virkni virknē?",
-                "3. Kas ir `StringBuilder` klase?",
-                "4. Kā izsaukt metodi, lai salīdzinātu divas virknes, ignorējot reģistru?",
-                "5. Kāda metode pārveido simbolu virkni par lielajiem burtiem?",
-                "6. Kā piekļūt simbolu virknes garumam?",
-                "7. Kas tiks izvadīts ekrānā ja kods būs šāds: System.out.println(\"abc\".substring(1, 3));",
-                "8. Kāda ir metode, lai pārbaudītu vai virkne sākas ar konkrētu apakšvirkni?",
-                "9. Kas tiks izvadīts ekrānā ja kods būs šāds: System.out.println(\"abc\".indexOf('b'));",
-                "10. Kā pievienot simbolu virknes virknei izmantojot `StringBuilder`?"
-        };
+    	String[] questions = {
+    	            "1. Kas atgriež simbolu virknes garumu?",
+    	            "2. Kā piekļūt pirmajam simbolam virknē?",
+    	            "3. Kas pārveido virkni uz lielajiem burtiem?",
+    	            "4. Kā pārveidot simbolu virkni uz mazajiem burtiem?",
+    	            "5. Kā pārbaudīt, vai simbols ir burts?",
+    	            "6. Kā pārbaudīt, vai simbols ir cipars?",
+    	            "7. Kā pārveidot simbolu par lielo burtu?",
+    	            "8. Kā pārveidot simbolu par mazo burtu?",
+    	            "9. Kā pārbaudīt, vai simbols ir atstarpe, tabs vai citas tukšās zīmes?",
+    	            "10. Kā apvienot divas virknes vienā?"
+    	    };
 
-        String[][] options = {
-                {"H", "e", "l", "o"},
-                {".append()", ".add()", ".concat()", ".merge()"},
-                {"Neinstancējama klase", "Imutabla klase", "Maināma klase", "Pārdefinējama klase"},
-                {".equalsIgnoreCase()", ".compareToIgnoreCase()", ".compareIgnoreCase()", ".equalsToIgnoreCase()"},
-                {".toUpperCase()", ".toCapitalize()", ".toUpper()", ".capitalize()"},
-                {".length()", ".size()", ".count()", ".getLength()"},
-                {"a", "bc", "ab", "b"},
-                {".startsWith()", ".beginsWith()", ".hasPrefix()", ".starts()"},
-                {"0", "1", "2", "-1"},
-                {".add()", ".append()", ".concat()", ".insert()"}
-        };
+    	     String[][] options = {
+    	            {"length()", "size()", "count()", "getLength()"},
+    	            {"firstChar()", "charAt(0)", "getChar(0)", "firstCharacter()"},
+    	            {"toUpperCase()", "upperCase()", "toBigLetters()", "toCapital()"},
+    	            {"toLowerCase()", "lowerCase()", "toSmallLetters()", "toTiny()"},
+    	            {"Character.isLetter(ch)", "Character.checkLetter(ch)", "Character.detectLetter(ch)", "Character.verifyLetter(ch)"},
+    	            {"Character.isDigit(ch)", "Character.checkDigit(ch)", "Character.detectDigit(ch)", "Character.verifyDigit(ch)"},
+    	            {"Character.toUpperCase(ch)", "Character.makeUpperCase(ch)", "Character.toUpper(ch)", "Character.convertToUpperCase(ch)"},
+    	            {"Character.toLowerCase(ch)", "Character.makeLowerCase(ch)", "Character.toLower(ch)", "Character.convertToLowerCase(ch)"},
+    	            {"Character.isWhitespace(ch)", "Character.checkWhitespace(ch)", "Character.detectEmpty(ch)", "Character.isSpace(ch)"},
+    	            {"concat()", "combine()", "append()", "merge()"}
+    	    };
 
-        int[] correctAnswers = {1, 0, 2, 0, 0, 0, 1, 0, 1, 1};
+    	     int[] correctAnswers = {0, 1, 0, 0, 0, 0, 2, 2, 0, 0};
 
         // Lietotāja atbildes
         int[] userAnswers = new int[questions.length];
