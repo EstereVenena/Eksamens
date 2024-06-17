@@ -32,7 +32,7 @@ public class Main {
 
     	     int[] correctAnswers = {0, 1, 0, 0, 0, 0, 2, 2, 0, 0};
 
-        // Lietotāja atbildes
+      
         int[] userAnswers = new int[questions.length];
         ArrayList<Integer> incorrectQuestions = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public class Main {
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, icon, optionsWithExit, optionsWithExit[0]);
 
             if (response == options[i].length) {
-                // Ja lietotājs izvēlas "Iziet"
+             
                 JOptionPane.showMessageDialog(null, "Tests pārtraukts.", "Iziet", JOptionPane.INFORMATION_MESSAGE);
                 System.exit(0);
             }
@@ -54,7 +54,7 @@ public class Main {
             userAnswers[i] = response;
         }
 
-        // Rezultātu apstrāde
+       
         int correctCount = 0;
         for (int i = 0; i < questions.length; i++) {
             if (userAnswers[i] == correctAnswers[i]) {
@@ -64,7 +64,7 @@ public class Main {
             }
         }
 
-        // Rezultātu paziņošana
+    
         StringBuilder resultMessage = new StringBuilder();
         resultMessage.append("Pareizi atbildēti jautājumi: ").append(correctCount).append(" no ").append(questions.length).append("\n");
 
