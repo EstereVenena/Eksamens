@@ -1,159 +1,82 @@
 package Eksamens;
-import java.util.Scanner;
-
-import javax.swing.JOptionPane;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
-public class StringFunctionsTestFX extends Application {
-
-    private int currentQuestionIndex = 0;
-    private int score = 0;
-    private char[] userAnswers = new char[10];
-
-    private String[] questions = {
-            "Kas atgriež simbolu virknes garumu?",
-            "Kas atgriež simbolu noteiktā pozīcijā?",
-            "Kas atgriež apakšvirkni no sākuma indeksa līdz beigām indeksam?",
-            "Kas atgriež pirmo norādītā simbolu virknes sastopamo vietu?",
-            "Kas pārveido virkni uz mazajiem burtiem?",
-            "Kas pārveido virkni uz lielajiem burtiem?",
-            "Kas aizvieto visus norādītos vecos simbolus ar jauniem?",
-            "Kas noņem liekās atstarpes no virknes sākuma un beigām?",
-            "Kas pārbauda, vai virkne ir tukša?",
-            "Kas savieno divas virknes?"
-    };
-
-    private String[][] options = {
-            {"length()", "size()", "getLength()", "count()"},
-            {"getChar()", "charAt()", "char()", "characterAt()"},
-            {"substring()", "subString()", "substr()", "getSubstring()"},
-            {"find()", "search()", "indexOf()", "locate()"},
-            {"toLowerCase()", "lower()", "toSmallCase()", "small()"},
-            {"toUpperCase()", "upper()", "toCapital()", "capital()"},
-            {"replace()", "substitute()", "change()", "swap()"},
-            {"trim()", "strip()", "cut()", "remove()"},
-            {"isEmpty()", "isBlank()", "length() == 0", "isVoid()"},
-            {"append()", "concat()", "join()", "merge()"}
-    };
-
-    private char[] answers = {'a', 'b', 'a', 'c', 'a', 'a', 'a', 'a', 'a', 'b'};
-
+public class Main {
     public static void main(String[] args) {
-        launch(args);
-    }
+        // Jautājumu un atbilžu inicializācija
+        String[] questions = {
+                "1. Kas tiks izvadīts ekrānā ja kods būs šāds: System.out.println(\"Hello\".charAt(1));",
+                "2. Kāda ir metode, lai pievienotu virkni virknē?",
+                "3. Kas ir `StringBuilder` klase?",
+                "4. Kā izsaukt metodi, lai salīdzinātu divas virknes, ignorējot reģistru?",
+                "5. Kāda metode pārveido simbolu virkni par lielajiem burtiem?",
+                "6. Kā piekļūt simbolu virknes garumam?",
+                "7. Kas tiks izvadīts ekrānā ja kods būs šāds: System.out.println(\"abc\".substring(1, 3));",
+                "8. Kāda ir metode, lai pārbaudītu vai virkne sākas ar konkrētu apakšvirkni?",
+                "9. Kas tiks izvadīts ekrānā ja kods būs šāds: System.out.println(\"abc\".indexOf('b'));",
+                "10. Kā pievienot simbolu virknes virknei izmantojot `StringBuilder`?"
+        };
 
-    @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("String Functions Test");
+        String[][] options = {
+                {"H", "e", "l", "o"},
+                {".append()", ".add()", ".concat()", ".merge()"},
+                {"Neinstancējama klase", "Imutabla klase", "Maināma klase", "Pārdefinējama klase"},
+                {".equalsIgnoreCase()", ".compareToIgnoreCase()", ".compareIgnoreCase()", ".equalsToIgnoreCase()"},
+                {".toUpperCase()", ".toCapitalize()", ".toUpper()", ".capitalize()"},
+                {".length()", ".size()", ".count()", ".getLength()"},
+                {"a", "bc", "ab", "b"},
+                {".startsWith()", ".beginsWith()", ".hasPrefix()", ".starts()"},
+                {"0", "1", "2", "-1"},
+                {".add()", ".append()", ".concat()", ".insert()"}
+        };
 
-        VBox layout = new VBox(20);
-        Text questionText = new Text(questions[currentQuestionIndex]);
-        ImageView imageView = new ImageView(new Image("file:question" + (currentQuestionIndex + 1) + ".png"));
-        ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.getItems().addAll(options[currentQuestionIndex]);
+        int[] correctAnswers = {1, 0, 2, 0, 0, 0, 1, 0, 1, 1};
 
-        Button nextButton = new Button("Next");
-        nextButton.setOnAction(e -> {
-            if (comboBox.getValue() != null) {
-                userAnswers[currentQuestionIndex] = getAnswerChar(comboBox.getValue());
-                if (userAnswers[currentQuestionIndex] == answers[currentQuestionIndex]) {
-                    score++;
-                }
-                currentQuestionIndex++;
-                if (currentQuestionIndex < questions.length) {
-                    questionText.setText(questions[currentQuestionIndex]);
-                    imageView.setImage(new Image("file:question" + (currentQuestionIndex + 1) + ".png"));
-                    comboBox.getItems().setAll(options[currentQuestionIndex]);
-                    comboBox.setValue(null);
-                } else {
-                    showResults(primaryStage);
-                }
-            }
-        });
+        // Lietotāja atbildes
+        int[] userAnswers = new int[questions.length];
+        ArrayList<Integer> incorrectQuestions = new ArrayList<>();
 
-        layout.getChildren().addAll(questionText, imageView, comboBox, nextButton);
-        Scene scene = new Scene(layout, 600, 400);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    private char getAnswerChar(String answer) {
-        switch (answer) {
-            case "length()":
-            case "getChar()":
-            case "substring()":
-            case "find()":
-            case "toLowerCase()":
-            case "toUpperCase()":
-            case "replace()":
-            case "trim()":
-            case "isEmpty()":
-            case "append()":
-                return 'a';
-            case "charAt()":
-            case "search()":
-            case "subString()":
-            case "lower()":
-            case "upper()":
-            case "substitute()":
-            case "strip()":
-            case "isBlank()":
-            case "concat()":
-                return 'b';
-            case "char()":
-            case "indexOf()":
-            case "substr()":
-            case "toSmallCase()":
-            case "toCapital()":
-            case "change()":
-            case "cut()":
-            case "length() == 0":
-            case "join()":
-                return 'c';
-            case "characterAt()":
-            case "locate()":
-            case "getSubstring()":
-            case "small()":
-            case "capital()":
-            case "swap()":
-            case "remove()":
-            case "isVoid()":
-            case "merge()":
-                return 'd';
-            default:
-                return ' ';
-        }
-    }
-
-    private void showResults(Stage primaryStage) {
-        VBox layout = new VBox(20);
-        Text resultText = new Text("Jūs atbildējāt pareizi uz " + score + " jautājumiem no 10.");
-        layout.getChildren().add(resultText);
-
-        Text incorrectQuestionsText = new Text("Nepareizie jautājumi:");
-        layout.getChildren().add(incorrectQuestionsText);
         for (int i = 0; i < questions.length; i++) {
-            if (userAnswers[i] != answers[i]) {
-                layout.getChildren().add(new Text(questions[i]));
+            ImageIcon icon = new ImageIcon("images/question" + (i + 1) + ".png");
+            Object[] optionsWithExit = new Object[options[i].length + 1];
+            System.arraycopy(options[i], 0, optionsWithExit, 0, options[i].length);
+            optionsWithExit[options[i].length] = "Iziet";
+
+            int response = JOptionPane.showOptionDialog(null, questions[i], "Jautājums " + (i + 1),
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, icon, optionsWithExit, optionsWithExit[0]);
+
+            if (response == options[i].length) {
+                // Ja lietotājs izvēlas "Iziet"
+                JOptionPane.showMessageDialog(null, "Tests pārtraukts.", "Iziet", JOptionPane.INFORMATION_MESSAGE);
+                System.exit(0);
+            }
+
+            userAnswers[i] = response;
+        }
+
+        // Rezultātu apstrāde
+        int correctCount = 0;
+        for (int i = 0; i < questions.length; i++) {
+            if (userAnswers[i] == correctAnswers[i]) {
+                correctCount++;
+            } else {
+                incorrectQuestions.add(i);
             }
         }
 
-        Scene resultScene = new Scene(layout, 600, 400);
-        primaryStage.setScene(resultScene);
-        primaryStage.show();
+        // Rezultātu paziņošana
+        StringBuilder resultMessage = new StringBuilder();
+        resultMessage.append("Pareizi atbildēti jautājumi: ").append(correctCount).append(" no ").append(questions.length).append("\n");
+
+        if (!incorrectQuestions.isEmpty()) {
+            resultMessage.append("Nepareizi atbildēti jautājumi:\n");
+            for (int index : incorrectQuestions) {
+                resultMessage.append("Jautājums ").append(index + 1).append(": ").append(questions[index]).append("\n");
+                resultMessage.append("Pareizā atbilde: ").append(options[index][correctAnswers[index]]).append("\n\n");
+            }
+        }
+
+        JOptionPane.showMessageDialog(null, resultMessage.toString(), "Rezultāti", JOptionPane.INFORMATION_MESSAGE);
     }
 }
-
